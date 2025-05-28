@@ -172,7 +172,7 @@ public class JwtFilter implements Filter {
                 path.startsWith("/api/admin/citas/actualizar/nombre-doctor/") ||
                 path.startsWith("/api/admin/usuarios/") && path.contains("/cambiar-rol") ||
                 path.startsWith("/api/login/usuarios/") && path.contains("/cambiar-rol-manual") ||
-
+               path.equals("/api/doctor/consultar") ||
                 path.equals("/api/doctor/pacientes")) {
             chain.doFilter(request, response);
             return;
