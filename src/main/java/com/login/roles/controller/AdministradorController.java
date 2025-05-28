@@ -306,9 +306,11 @@ public ResponseEntity<?> listarDoctores() {
 
     // Listar todas las citas
     @GetMapping("/citas/listar")
-    public ResponseEntity<?> listarCitas() {
-        return restTemplate.getForEntity(URL_CITAS + "/listar", String.class);
-    }
+public ResponseEntity<?> listarCitas() {
+    ResponseEntity<CitaProgramadaDTO[]> response = restTemplate.getForEntity(URL_CITAS + "/listar", CitaProgramadaDTO[].class);
+    return ResponseEntity.ok(Arrays.asList(response.getBody()));
+}
+
 
     // Buscar cita por ID
     @GetMapping("/citas/buscar/id/{id}")
