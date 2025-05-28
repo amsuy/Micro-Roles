@@ -425,71 +425,62 @@ public ResponseEntity<?> listarDoctores() {
 
     // Crear una nueva cita
     @PostMapping("/citas/crear")
-    public ResponseEntity<?> crearCita(@RequestBody CitaProgramadaDTO citaDTO) {
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, headers);
-
-            return restTemplate.postForEntity("http://localhost:9292/api/citas/crear", request, String.class);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al crear cita: " + e.getMessage());
-        }
+public ResponseEntity<?> crearCita(@RequestBody CitaProgramadaDTO citaDTO) {
+    try {
+        HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, buildHeaders());
+        return restTemplate.postForEntity(URL_CITAS + "/crear", request, String.class);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("Error al crear cita: " + e.getMessage());
     }
+}
+
 
     // Actualizar una cita
-    @PutMapping("/citas/actualizar/{id}")
-    public ResponseEntity<?> actualizarCita(@PathVariable("id") Integer id, @RequestBody CitaProgramadaDTO citaDTO) {
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, headers);
-
-            return restTemplate.exchange(
-                    "http://localhost:9292/api/citas/actualizar/" + id,
-                    HttpMethod.PUT,
-                    request,
-                    String.class);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al actualizar cita: " + e.getMessage());
-        }
+   @PutMapping("/citas/actualizar/{id}")
+public ResponseEntity<?> actualizarCita(@PathVariable("id") Integer id, @RequestBody CitaProgramadaDTO citaDTO) {
+    try {
+        HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, buildHeaders());
+        return restTemplate.exchange(
+                URL_CITAS + "/actualizar/" + id,
+                HttpMethod.PUT,
+                request,
+                String.class);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("Error al actualizar cita: " + e.getMessage());
     }
+}
+
 
     // Finalizar una cita (cambia estado y registra costo y fechaFin)
-    @PutMapping("/citas/finalizar/{id}")
-    public ResponseEntity<?> finalizarCita(@PathVariable("id") Integer id, @RequestBody CitaProgramadaDTO citaDTO) {
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, headers);
-
-            return restTemplate.exchange(
-                    "http://localhost:9292/api/citas/finalizar/" + id,
-                    HttpMethod.PUT,
-                    request,
-                    String.class);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al finalizar cita: " + e.getMessage());
-        }
+   @PutMapping("/citas/finalizar/{id}")
+public ResponseEntity<?> finalizarCita(@PathVariable("id") Integer id, @RequestBody CitaProgramadaDTO citaDTO) {
+    try {
+        HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, buildHeaders());
+        return restTemplate.exchange(
+                URL_CITAS + "/finalizar/" + id,
+                HttpMethod.PUT,
+                request,
+                String.class);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("Error al finalizar cita: " + e.getMessage());
     }
+}
 
     // Cancelar una cita (requiere solo fechaFin en el DTO)
     @PutMapping("/citas/cancelar/{id}")
-    public ResponseEntity<?> cancelarCita(@PathVariable("id") Integer id, @RequestBody CitaProgramadaDTO citaDTO) {
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, headers);
-
-            return restTemplate.exchange(
-                    "http://localhost:9292/api/citas/cancelar/" + id,
-                    HttpMethod.PUT,
-                    request,
-                    String.class);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al cancelar cita: " + e.getMessage());
-        }
+public ResponseEntity<?> cancelarCita(@PathVariable("id") Integer id, @RequestBody CitaProgramadaDTO citaDTO) {
+    try {
+        HttpEntity<CitaProgramadaDTO> request = new HttpEntity<>(citaDTO, buildHeaders());
+        return restTemplate.exchange(
+                URL_CITAS + "/cancelar/" + id,
+                HttpMethod.PUT,
+                request,
+                String.class);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("Error al cancelar cita: " + e.getMessage());
     }
+}
+
 
     @GetMapping("/usuarios/consultar/activos")
     public ResponseEntity<?> obtenerUsuariosActivos() {
