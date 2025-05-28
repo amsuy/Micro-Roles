@@ -35,9 +35,15 @@ public class AdministradorController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:9090/api/paciente";
-    private final String DOCTOR_URL = "http://localhost:9191/api/doctor";
-    private final String URL_CITAS = "http://localhost:9292/api/citas";
+   @Value("${paciente.service.url}")
+private String BASE_URL;
+
+@Value("${doctor.service.url}")
+private String DOCTOR_URL;
+
+@Value("${citas.service.url}")
+private String URL_CITAS;
+
 
     private HttpHeaders buildHeaders() {
         HttpHeaders headers = new HttpHeaders();
