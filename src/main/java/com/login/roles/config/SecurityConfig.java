@@ -33,7 +33,6 @@ public class SecurityConfig {
                     "/api/login/registrar",
                     "/api/recepcionista/**",
                     "/api/admin/**",
-                    "/api/doctor/**",
                     "/api/pacientes/**",
                     "/api/doctores/**"
                 ).permitAll()
