@@ -163,9 +163,12 @@ private String URL_CITAS;
     }
 
     @GetMapping("/doctores/consultar")
-    public ResponseEntity<?> listarDoctores() {
-        return restTemplate.exchange(DOCTOR_URL + "/consultar", HttpMethod.GET, null, String.class);
-    }
+public ResponseEntity<?> listarDoctores() {
+    ResponseEntity<DoctorDTO[]> response = restTemplate.getForEntity(DOCTOR_URL + "/consultar",
+            DoctorDTO[].class);
+    return ResponseEntity.ok(Arrays.asList(response.getBody()));
+}
+
 
     @GetMapping("/doctores/buscar/id/{id}")
     public ResponseEntity<?> buscarDoctorPorId(@PathVariable("id") Long id) {
